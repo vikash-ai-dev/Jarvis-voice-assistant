@@ -7,13 +7,13 @@ recognizer = sr.Recognizer()
 
 def speak(text):
     print("Jarvis:", text)
-    engine = pyttsx3.init()          # ✅ Fresh engine every time
+    engine = pyttsx3.init()          
     engine.setProperty('rate', 150)
     engine.setProperty('volume', 1.0)
     engine.say(text)
     engine.runAndWait()
-    engine.stop()                    # ✅ Properly stop after speaking
-    del engine                       # ✅ Delete engine to free audio device
+    engine.stop()                   
+    del engine                       
     
 
 def processcommand(c):
@@ -30,12 +30,12 @@ def processcommand(c):
         webbrowser.open("https://linkedin.com")
 
     elif c.lower().startswith("play"):
-        song = c.lower().split(" ", 1)[1]  # ✅ split only once to get full song name
+        song = c.lower().split(" ", 1)[1] 
         if song in music.music:
             speak("Playing " + song)
             webbrowser.open(music.music[song])
         else:
-            speak("Sorry, I don't have that song.")  # ✅ Handle missing songs
+            speak("Sorry, I don't have that song.")  
 
 
 if __name__ == "__main__":
@@ -46,9 +46,9 @@ if __name__ == "__main__":
             print("Recognizing....")
 
             with sr.Microphone() as source:
-              # ✅ Reduces background noise for better recognition
+             
                 recognizer.adjust_for_ambient_noise(source, duration=0.2)
-                # ✅ Prevents mic from listening forever
+                
                 audio = recognizer.listen(source, timeout=10, phrase_time_limit=4)  
 
             command = recognizer.recognize_google(audio)
